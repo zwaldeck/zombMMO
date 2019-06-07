@@ -21,9 +21,10 @@ namespace Guns.Bullets
             body = GetComponent<Rigidbody2D>();
         }
 
-        public void Update()
+        public void FixedUpdate()
         {
-            body.MovePosition(body.position + moveDirection);
+            var movement = new Vector2(transform.position.x, transform.position.y) + Time.deltaTime * moveSpeed * moveDirection;
+            body.MovePosition(movement);
         }
 
         public void OnBecameInvisible()
