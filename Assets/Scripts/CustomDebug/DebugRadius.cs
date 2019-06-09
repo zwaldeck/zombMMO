@@ -7,6 +7,7 @@ namespace CustomDebug
     {
         [SerializeField] private int vertexCount = 40;
         [SerializeField] private float radius = 1.0f;
+        [SerializeField] private Color color = Color.white;
 
         public void Start()
         {
@@ -14,6 +15,7 @@ namespace CustomDebug
 
         public void OnDrawGizmos()
         {
+            Gizmos.color = color;
             var deltaTheta = (2f * Mathf.PI) / vertexCount;
             var theta = 0f;
  
@@ -31,6 +33,7 @@ namespace CustomDebug
  
                 theta += deltaTheta;
             }
+            Gizmos.color = Color.white;
         }
     }
 }
