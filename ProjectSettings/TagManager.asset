@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bullet Start Position
   - Bullet Pool
+  - Tilemap Collision
   layers:
   - Default
   - TransparentFX

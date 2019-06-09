@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Guns;
 using UnityEngine;
+using Utils;
 
 namespace Player
 {
@@ -39,8 +40,8 @@ namespace Player
             var bodyPosition = body.position;
             var camDistance = cam.transform.position.y - bodyPosition.y;
             var mouse = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, camDistance));
-            var angleInRad = Mathf.Atan2(mouse.y - bodyPosition.y, mouse.x - bodyPosition.x);
-            var angle = (180 / Mathf.PI) * angleInRad;
+
+            var angle = TransformUtils.LookAt(transform.position, mouse);
 
             // Fixes a weird issue when its 180 that it does not show anything anymore
             if (Mathf.Abs(angle) > 179.9f && Mathf.Abs(angle) < 180.1f) 

@@ -1,41 +1,36 @@
 using System;
 using UnityEngine;
 
-namespace Debug
+namespace CustomDebug
 {
-    [RequireComponent(typeof(LineRenderer))]
     public class DebugRadius : MonoBehaviour
     {
         [SerializeField] private int vertexCount = 40;
-        [SerializeField] private float lineWidth = 0.2f;
         [SerializeField] private float radius = 1.0f;
-
-        private LineRenderer lineRenderer;
 
         public void Start()
         {
-            lineRenderer = GetComponent<LineRenderer>();
-
-            SetupCircle();
         }
 
-        public void Update()
+        public void OnDrawGizmos()
         {
             var deltaTheta = (2f * Mathf.PI) / vertexCount;
             var theta = 0f;
-
-            for (var i = 0; i < lineRenderer.positionCount; i++)
+ 
+            var oldPos = transform.position;
+            for (var i=0; i<vertexCount + 1; i++)
             {
-                var pos = new Vector3(radius * Mathf.Cos(theta), radius * Mathf.Sin(theta), 0f) + transform.position;
-                lineRenderer.SetPosition(i, pos);
+                var pos = new Vector3(radius * Mathf.Cos(theta), radius * Mathf.Sin(theta), 0f);
+
+                if (i != 0)
+                {
+                    Gizmos.DrawLine(oldPos, transform.position + pos);
+                }
+
+                oldPos = transform.position + pos;
+ 
                 theta += deltaTheta;
             }
-        }
-
-        private void SetupCircle()
-        {
-            lineRenderer.widthMultiplier = lineWidth;
-            lineRenderer.positionCount = vertexCount;
         }
     }
 }
